@@ -29,3 +29,25 @@ public class Main {
                     tasks.add(new Task(description));
                     System.out.println("Tasca afegida correctament!");
                     break;
+                
+                case 2:
+                    // Marcar una tasca com a completada
+                    if (tasks.isEmpty()) {
+                        System.out.println("No hi ha tasques per completar.");
+                    } else {
+                        System.out.println("Introdueix el número de la tasca que vols marcar com a completada:");
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println((i + 1) + ". " + tasks.get(i).getDescription() + 
+                                    " (Completada: " + tasks.get(i).isCompleted() + ")");
+                        }
+
+                        int taskNumber = scanner.nextInt();
+                        if (taskNumber > 0 && taskNumber <= tasks.size()) {
+                            Task selectedTask = tasks.get(taskNumber - 1);
+                            selectedTask.setCompleted(true);
+                            System.out.println("Tasca marcada com a completada.");
+                        } else {
+                            System.out.println("Número de tasca invàlid.");
+                        }
+                    }
+                    break;
