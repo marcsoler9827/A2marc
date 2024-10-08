@@ -7,47 +7,69 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         List<Task> tasks = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
 
+        // Scanner per capturar l'entrada de l'usuari
+        Scanner scanner = new Scanner(System.in);
+        
         while (true) {
-            System.out.println("1. Agregar tarea");
-            System.out.println("2. Marcar tarea como completada");
-            System.out.println("3. Mostrar tareas");
-            System.out.println("4. Salir");
+            System.out.println("\nMenu:");
+            System.out.println("1. Agregar una nova tasca");
+            System.out.println("2. Marcar una tasca com a completada");
+            System.out.println("3. Mostrar totes les tasques");
+            System.out.println("4. Sortir");
 
             int option = scanner.nextInt();
-            scanner.nextLine();  // Consume newline character
+            scanner.nextLine(); // Netejar la línia
 
             switch (option) {
                 case 1:
-                    // Logic for adding a new task
-                    System.out.println("Escribe la descripción de la tarea:");
+                    // Afegir una nova tasca
+                    System.out.println("Introdueix la descripció de la tasca:");
                     String description = scanner.nextLine();
-                    Task newTask = new Task(description);
-                    tasks.add(newTask);
-                    System.out.println("Tarea agregada.");
+                    tasks.add(new Task(description));
+                    System.out.println("Tasca afegida correctament!");
                     break;
+                
                 case 2:
-                    // Logic for marking task as complete
-                    System.out.println("Escribe el número de la tarea para marcar como completada:");
-                    int taskNumber = scanner.nextInt();
-                    if (taskNumber > 0 && taskNumber <= tasks.size()) {
-                        tasks.get(taskNumber - 1).setCompleted(true);
-                        System.out.println("Tarea marcada como completada.");
+                    // Marcar una tasca com a completada
+                    if (tasks.isEmpty()) {
+                        System.out.println("No hi ha tasques per completar.");
                     } else {
-                        System.out.println("Número de tarea inválido.");
+                        System.out.println("Introdueix el número de la tasca que vols marcar com a completada:");
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println((i + 1) + ". " + tasks.get(i).getDescription() + 
+                                    " (Completada: " + tasks.get(i).isCompleted() + ")");
+                        }
+
+                        int taskNumber = scanner.nextInt();
+                        if (taskNumber > 0 && taskNumber <= tasks.size()) {
+                            Task selectedTask = tasks.get(taskNumber - 1);
+                            selectedTask.setCompleted(true);
+                            System.out.println("Tasca marcada com a completada.");
+                        } else {
+                            System.out.println("Número de tasca invàlid.");
+                        }
                     }
                     break;
                 case 3:
-                    // Logic for showing tasks
-                    System.out.println("Lista de tareas:");
-                    for (int i = 0; i < tasks.size(); i++) {
-                        System.out.println((i + 1) + ". " + tasks.get(i));
+                    // Mostrar totes les tasques
+                    if (tasks.isEmpty()) {
+                        System.out.println("No hi ha tasques per mostrar.");
+                    } else {
+                        System.out.println("Llista de tasques:");
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println((i + 1) + ". " + tasks.get(i).getDescription() + 
+                                    " (Completada: " + tasks.get(i).isCompleted() + ")");
+                        }
                     }
                     break;
                 case 4:
-                    System.out.println("Saliendo del programa...");
+                    // Sortir del programa
+                    System.out.println("Sortint...");
                     System.exit(0);
+
+                default:
+                    System.out.println("Opció invàlida. Si us plau, introdueix un número entre 1 i 4.");
             }
         }
     }
