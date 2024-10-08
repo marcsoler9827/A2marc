@@ -63,3 +63,14 @@ public class Main {
                         }
                     }
                     break;
+                case 4:
+                    // Sortir del programa
+                    System.out.println("Sortint...");
+                    System.exit(0);
+
+                default:
+                    System.out.println("Opció invàlida. Si us plau, introdueix un número entre 1 i 4.");
+            }
+        }
+    }
+}
